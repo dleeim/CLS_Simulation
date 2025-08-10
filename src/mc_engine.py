@@ -25,7 +25,7 @@ def generate_stock_paths(S0, T, r, N_STEPS, N_SIMS, term_structure_func) -> np.n
     return paths
 
 
-def evaluate_els_payoffs(paths: np.ndarray, S0, T, N_STEPS, 
+def evaluate_cls_payoffs(paths: np.ndarray, S0, T, N_STEPS, 
                          autocall_time, autocall_level, 
                          ki_barrier_level, coupon_rate):
 
@@ -106,7 +106,7 @@ def plot_simulation_paths(paths: np.ndarray, S0, T, N_STEPS,
     
     ax.set_xlabel('Time (Years)')
     ax.set_ylabel('Stock Price')
-    ax.set_title(f'ELS Monte Carlo Simulation\n{n_display} Sample Paths out of {paths.shape[1]:,} Total')
+    ax.set_title(f'CLS Monte Carlo Simulation\n{n_display} Sample Paths out of {paths.shape[1]:,} Total')
     ax.legend(loc='upper left')
     ax.grid(True, alpha=0.3)
     
@@ -127,14 +127,14 @@ def plot_payoff_distribution(payoffs: np.ndarray):
                 label=f'Mean: {np.mean(payoffs):.3f}')
     ax1.set_xlabel('Payoff')
     ax1.set_ylabel('Frequency')
-    ax1.set_title('ELS Payoff Distribution')
+    ax1.set_title('CLS Payoff Distribution')
     ax1.legend()
     ax1.grid(True, alpha=0.3)
     
     # Box plot
     ax2.boxplot(payoffs, vert=True)
     ax2.set_ylabel('Payoff')
-    ax2.set_title('ELS Payoff Box Plot')
+    ax2.set_title('CLS Payoff Box Plot')
     ax2.grid(True, alpha=0.3)
     
     plt.tight_layout()
