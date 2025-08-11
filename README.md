@@ -30,9 +30,11 @@ The project follows a systematic, real-world quantitative analysis workflow:
 
       * A continuous **Implied Volatility Surface** is fitted to the market data using **`Stochastic Volatility Inspired`** model and a spline interpolation model **`RectBivariateSpline`**. This serves as the primary input for all subsequent models.
       * The **IV Skews** and **ATM Volatility Term Structure** are extracted from the surface to be used in the simulation.
+      <img src="outputs/iv_surface.png" alt="IV Surface" width="500"/>
 
 3.  **CLS Product Design & Pricing (`CSL_analysis.ipynb`):**
 
       * A custom CLS product with features like Autocall (early redemption) and a Knock-In (KI) barrier is designed.
       * The product is priced using a vectorized **Monte Carlo simulation engine** that dynamically references the volatility term structure at each time step.
       * Used finite difference method to calculate greeks of CLS.
+      <img src="outputs/cls_mc_sim.png" alt="CLS Monte Carlo Simulation" width="500"/>
