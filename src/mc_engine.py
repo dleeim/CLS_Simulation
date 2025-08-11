@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+np.random.seed(42)
 
 def generate_stock_paths(S0, T, r, N_STEPS, N_SIMS, term_structure_func) -> np.ndarray:
     
@@ -88,7 +89,7 @@ def plot_simulation_paths(paths: np.ndarray, S0, T, N_STEPS,
     
     # Select subset of paths to display
     n_display = min(n_paths_display, paths.shape[1])
-    display_indices = np.random.choice(paths.shape[1], n_display, replace=False)
+    display_indices = np.random.choice(paths.shape[1], n_display, replace=False, )
     
     fig, ax = plt.subplots(figsize=(10,6))
     
