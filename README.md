@@ -14,7 +14,7 @@ This project demonstrates a basic quantitative finance workflow for pricing of a
 
 -----
 
-## Methodology Workflow
+## Workflow
 
 The project follows a systematic, real-world quantitative analysis workflow:
 
@@ -24,6 +24,7 @@ The project follows a systematic, real-world quantitative analysis workflow:
       * Data is cleaned, pre-processed, and engineered into a usable format for analysis.
       * Implied Volatility is calculated for each option using the Black-Scholes model and a root-finding algorithm **`brentq`**.
       * Compared calculated IV with mark IV provided in Binance and achieved 99.9% of data having +-5% error.
+      ![iv_error_distribution](outputs/iv_error_distribution.jpg)
 
 2.  **Volatility Surface Modeling (`src/iv_engine.py` & `iv_surface_analysis.ipynb`):**
 
@@ -35,5 +36,3 @@ The project follows a systematic, real-world quantitative analysis workflow:
       * A custom CLS product with features like Autocall (early redemption) and a Knock-In (KI) barrier is designed.
       * The product is priced using a vectorized **Monte Carlo simulation engine** that dynamically references the volatility term structure at each time step.
       * Used finite difference method to calculate greeks of CLS.
-
------
