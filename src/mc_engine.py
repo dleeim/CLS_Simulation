@@ -105,7 +105,7 @@ def plot_simulation_paths(paths: np.ndarray, S0, T, N_STEPS,
                label=f'Autocall Time ({autocall_time*12:.0f} months)')
     
     ax.set_xlabel('Time (Years)')
-    ax.set_ylabel('Stock Price')
+    ax.set_ylabel('BTC/USDT')
     ax.set_title(f'CLS Monte Carlo Simulation\n{n_display} Sample Paths out of {paths.shape[1]:,} Total')
     ax.legend(loc='upper left')
     ax.grid(True, alpha=0.3)
