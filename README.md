@@ -24,7 +24,7 @@ The project follows a systematic, real-world quantitative analysis workflow:
       * Data is cleaned, pre-processed, and engineered into a usable format for analysis.
       * Implied Volatility is calculated for each option using the Black-Scholes model and a root-finding algorithm **`brentq`**.
       * Compared calculated IV with mark IV provided in Binance and achieved 99.9% of data having +-5% error.
-      ![iv_error_distribution](outputs/iv_error_distribution.png)
+      <img src="outputs/iv_error_distribution.png" alt="IV Calculation Error Distribution" width="500"/>
 
 2.  **Volatility Surface Modeling (`src/iv_engine.py` & `iv_surface_analysis.ipynb`):**
 
