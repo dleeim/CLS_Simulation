@@ -1,6 +1,6 @@
 -----
 
-# Crypto-Linked Security (CLS) Pricing and Risk Analysis Engine
+# Crypto-Linked Security (CLS) Pricing
 
 This project demonstrates a basic quantitative finance workflow for pricing of a path-dependent derivative Crypto-Linked Security (CLS) based on BTC/USDT in Binance options market data.
 
