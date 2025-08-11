@@ -80,6 +80,39 @@ def evaluate_cls_payoffs(paths: np.ndarray, S0, T, N_STEPS,
     
     return payoffs, stats
 
+def evaluate_cls_greeks(S0, T, r, N_STEPS, N_SIMS, term_structure_func, autocall_time, autocall_level, ki_barrier_level, coupon_rate):
+
+    # Parameters
+    k = 0.005
+    eps = S0*k
+    eps_iv = 0.01
+    S0_up = S0*(1+k)
+    S0_down = S0*(1-k)
+
+    # paths and payoffs
+    paths = generate_stock_paths(S0, T, r, N_STEPS, N_SIMS, term_structure_func)
+    payoffs, stats = evaluate_cls_payoffs(paths, S0, T, N_STEPS, autocall_time, autocall_level, ki_barrier_level, coupon_rate)
+    paths_up = generate_stock_paths(S0_up, T, r, N_STEPS, N_SIMS, term_structure_func)
+    payoffs_up, stats_up = evaluate_cls_payoffs(paths_up, S0_up, T, N_STEPS, autocall_time, autocall_level, ki_barrier_level, coupon_rate)
+    paths_up = generate_stock_paths(S0_up, T, r, N_STEPS, N_SIMS, term_structure_func)
+    payoffs_up, stats_up = evaluate_cls_payoffs(paths_up, S0_up, T, N_STEPS, autocall_time, autocall_level, ki_barrier_level, coupon_rate)
+    paths_down = generate_stock_paths(S0_down, T, r, N_STEPS, N_SIMS, term_structure_func)
+    payoffs_down, stats_down = evaluate_cls_payoffs(paths_down, S0_down, T, N_STEPS, autocall_time, autocall_level, ki_barrier_level, coupon_rate)
+
+    term_structure_func_up = lambda t: term_structure_func(t) + eps_iv
+    term_structure_func_down = lambda t: term_structure_func(t) - eps_iv
+    paths_up_iv = generate_stock_paths(S0, T, r, N_STEPS, N_SIMS, term_structure_func_up)
+    payoffs_up_iv, stats_up_iv = evaluate_cls_payoffs(paths_up_iv, S0, T, N_STEPS, autocall_time, autocall_level, ki_barrier_level, coupon_rate)
+    paths_down_iv = generate_stock_paths(S0, T, r, N_STEPS, N_SIMS, term_structure_func_down)
+    payoffs_down_iv, stats_down_iv = evaluate_cls_payoffs(paths_down_iv, S0, T, N_STEPS, autocall_time, autocall_level, ki_barrier_level, coupon_rate)
+
+    # Greeks
+    return {
+        'delta' : S0*(stats_up['mean_payoff'] - stats_down['mean_payoff'])/(2*eps),
+        'gamma' : S0*(stats_up['mean_payoff'] - stats['mean_payoff'] + stats_down['mean_payoff'])/(eps**2),
+        'vega'  : S0*(stats_up_iv['mean_payoff'] - stats_down_iv['mean_payoff'])/(2*eps)
+    }
+
 
 def plot_simulation_paths(paths: np.ndarray, S0, T, N_STEPS,
                          autocall_time, autocall_level,
